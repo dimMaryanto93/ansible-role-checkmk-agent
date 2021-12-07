@@ -1,0 +1,32 @@
+galaxy_info:
+  author: dimmaryanto93
+  role_name: checkmk_agent
+  description: Install & configure agent for checkmk
+  company: PT. Tabeldata Informatika
+
+  license: 
+  - MIT
+
+  min_ansible_version: 2.9
+
+  # https://galaxy.ansible.com/api/v1/platforms/
+  platforms:
+  - name: Ubuntu
+    versions:
+    - focal
+    - bionic
+  - name: EL
+    versions:
+    - 7
+    - 8
+
+  galaxy_tags: 
+    - checkmk
+    - agent
+    - monitoring
+    
+
+dependencies: []
+  # List your role dependencies here, one per line. Be sure to remove the '[]' above,
+  # if you add dependencies to this list.
+  
