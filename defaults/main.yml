@@ -1,5 +1,5 @@
 ---
-checkmk_server_url: http://10.10.22.106:8080
+checkmk_server_url: http://localhost:8080
 ## get version from http://<checkmk-server-url>/cmk/check_mk/agents/
 checkmk_agent_version: 2.0.0p6-1
 checkmk_agent_only_from: []
