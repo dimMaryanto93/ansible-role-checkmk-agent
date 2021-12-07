@@ -58,8 +58,8 @@ Ada beberapa variable yang temen-temen bisa gunakan untuk setting docker daemon,
 
 | Variable name               | Example value                     | Description |
 | :---                        | :---                              | :---        |
-| `checkmk_server_url`        | `http://localhost:8080`           |             |
-| `checkmk_agent_version`     | `2.0.0p6-1`                       |             |
+| `checkmk_server_url`        | `http://localhost:8080`           | checkmk server url |
+| `checkmk_agent_version`     | `2.0.0p6-1`                       | version checkmk agent bisa di check di alamat `http://checkmk-server-ip:checkmk-server-port/cmk/check_mk/agents/`  |
 | `checkmk_agent_only_from`   | `['localhost', '192.168.88.10']`  | Untuk memprotect data yang di expose oleh `check_mk_agent` yang boleh di access oleh ip tersebut |
 | `checkmk_agent_port`        | `'6556'`                          | Port yang di gunakan untuk berkomunikasi dengan `checkmk_server` |
 
