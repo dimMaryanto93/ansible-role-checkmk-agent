@@ -1,0 +1,1 @@
+ansible_binary_package: "check-mk-agent-{{ checkmk_agent_version }}.noarch.rpm"

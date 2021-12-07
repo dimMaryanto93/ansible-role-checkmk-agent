@@ -1,2 +1,6 @@
 ---
-# defaults file for ansible-role-checkmk-agent
+checkmk_server_url: http://103.8.238.123:8080
+## get version from http://<checkmk-server-url>/cmk/check_mk/agents/
+checkmk_agent_version: 2.0.0p6-1
+checkmk_agent_only_from: []
+checkmk_agent_port: '6556'

@@ -1,2 +1,63 @@
 ---
-# tasks file for ansible-role-checkmk-agent
+- name: Load a variable file based on the OS type
+  include_vars: "{{ lookup('first_found', params) }}"
+  vars:
+    params:
+      files:
+        - 'os_{{ansible_os_family | lower }}.yaml'
+      paths:
+        - 'vars'
+
+- set_fact:
+    file_download: "{{ checkmk_server_url }}/cmk/check_mk/agents/{{ ansible_binary_package }}"
+
+- name: Debug url Download
+  debug:
+    msg: "{{ file_download }}"
+
+- name: Install packages for checkmk agent for linux
+  block: 
+  - name: Install checkmk agent for RedHat family
+    yum: 
+      name: "{{ file_download }}"
+      state: present
+    when: ansible_os_family == "RedHat"
+ 
+  - name: Install checkmk agent for Debian family
+    yum: 
+      deb: "{{ file_download }}"
+      update_cache: yes
+    when: ansible_os_family == "Debian"
+
+  - name: Install the latest version of xinetd
+    package:
+      name: xinetd
+      state: latest
+
+- name: Configure xinetd & firewall
+  block:
+
+  - name: Copy template chec-mk-agent
+    template:
+      src: check-mk-agent.template.j2
+      dest: /etc/xinetd.d/check-mk-agent
+      mode: '0755'
+  
+  - name: Restart service xinetd
+    ansible.builtin.service:
+      name: xinetd
+      state: restarted
+
+  - name: Allow tcp port for Debian family
+    ufw:
+      state: enabled
+      port: "{{ checkmk_agent_port }}"
+      policy: allow
+    when: ansible_os_family == "Debian"
+  
+  - name: Allow tcp port for RedHat family
+    firewalld:
+      port: "{{ checkmk_agent_port }}/tcp"
+      permanent: yes
+      state: enabled
+    when: ansible_os_family == "RedHat"

@@ -1,0 +1,12 @@
+service check_mk
+{
+        type           = UNLISTED
+        port           = {{ checkmk_agent_port }}
+        socket_type    = stream
+        protocol       = tcp
+        wait           = no
+        user           = root
+        server         = /usr/local/bin/check_mk_agent
+        only_from      = {{ checkmk_agent_only_from | join(' ') }}
+        disable        = no
+}
